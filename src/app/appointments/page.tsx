@@ -92,7 +92,7 @@ export default function Home() {
       </form>
       {message && <p>{message}</p>}
 
-     <AppointmentsTable  appointments={appointments}/>
+     <AppointmentsTable />
 
       <div>
 
