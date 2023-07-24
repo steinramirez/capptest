@@ -11,9 +11,7 @@ interface Appointment {
 }
 
 const AppointmentsTable = () => {
-  
   const [deleteId, setDeleteId] = useState<number | null>(null);
-  const [confirmDelete, setConfirmDelete] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [deletingAppointment, setDeletingAppointment] = useState<number | null>(null);
   const [appointments, setAppointments] = useState<Appointment[]>([]);
@@ -37,21 +35,19 @@ const AppointmentsTable = () => {
     // Fetch appointments when the component mounts (you can also do it based on some event)
     fetchAppointments();
   }, []);
-  
+
   const confirmDeleteAppointment = async () => {
     setShowConfirmation(false);
-    setConfirmDelete(true);
     if (deleteId !== null) {
       await deleteAppointment(deleteId); // Call deleteAppointment with deleteId after confirming deletion
-      setConfirmDelete(true); // Call deleteAppointment with deleteId after confirming deletion
     }
   };
 
   const cancelDeleteAppointment = () => {
     setShowConfirmation(false);
     setDeleteId(null);
-    setConfirmDelete(false);
   };
+
   const handleDelete = (id: number) => {
     setDeleteId(id);
     setShowConfirmation(true);
@@ -65,7 +61,6 @@ const AppointmentsTable = () => {
       setDeletingAppointment(null); // Handle the response as needed
       fetchAppointments(); // Refresh the list of appointments after successful deletion
       // Clear the delete ID
-      setShowConfirmation(false);
       setDeleteId(null);
     } catch (error) {
       console.error('Error deleting appointment:', error);
