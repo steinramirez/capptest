@@ -35,7 +35,7 @@ const AppointmentsTable = ({ }) => {
     fetchAppointments();
   }, []);
 
-  const handleDelete = (id) => {
+  const handleDelete = (id: number) => {
     setDeleteId(id);
     setShowConfirmation(true);
   };
