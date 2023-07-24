@@ -9,7 +9,7 @@ import { FcFullTrash } from "react-icons/fc";
 const AppointmentsTable = ({ }) => {
   
 
-  const [deleteId, setDeleteId] = useState<null>(null);
+  const [deleteId, setDeleteId] = useState<number | null>(null);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [deletingAppointment, setDeletingAppointment] = useState(null);
