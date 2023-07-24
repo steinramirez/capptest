@@ -49,7 +49,7 @@ const AppointmentsTable = () => {
   };
 
   const handleDelete = (id: number) => {
-    setDeleteId(id);
+    setDeleteId((prevDeleteId) => (prevDeleteId === id ? null : id));
     setShowConfirmation(true);
   };
 
