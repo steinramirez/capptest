@@ -58,6 +58,7 @@ export default function Home() {
   };
 
   return (
+    <>
     <div className='Form hv-[90hv]'>
       <form onSubmit={handleSubmit}>
         <label >
@@ -98,5 +99,6 @@ export default function Home() {
 
       </div>
     </div>
+    </>
   );
 }

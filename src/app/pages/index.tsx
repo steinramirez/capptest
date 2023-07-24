@@ -1,4 +1,5 @@
-const express = require('express');
+
+import express, { Request, Response } from 'express';
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const sqlite3 = require('sqlite3').verbose();
@@ -8,8 +9,14 @@ app.use(bodyParser.json());
 console.log(bodyParser.json())
 app.use(cors());
 
+interface Appointment {
+  id: number;
+  customerName: string;
+  appointmentTime: string;
+  appointmentDate: string;
+}
 // Replace with your SQLite database connection
-const db = new sqlite3.Database('appointments.db', (err ) => {
+const db = new sqlite3.Database('appointments.db', (err: Error | null  ) => {
   if (err) {
     console.error('Error connecting to database:', err.message);
   } else {
@@ -27,12 +34,12 @@ const db = new sqlite3.Database('appointments.db', (err ) => {
 
 // Add an appointment
 
-app.post('/appointments', async (req, res) => {
+app.post('/appointments', async (req: Request, res: Response) => {
   const { customerName, appointmentTime, appointmentDate } = req.body;
 
   try {
     const query = 'INSERT INTO AppointmentSetters (customerName, appointmentTime, appointmentDate) VALUES (?, ?, ?)';
-    db.run(query, [customerName, appointmentTime, appointmentDate], function (err) {
+    db.run(query, [customerName, appointmentTime, appointmentDate], function (this: any, err: Error | null) {
       if (err) {
         console.error(err);
         res.status(500).json({ message: 'Failed to set the appointment.' });
@@ -48,7 +55,7 @@ app.post('/appointments', async (req, res) => {
 });
   
 app.delete('/appointments/:id', (req, res) => {
-  db.run('DELETE FROM AppointmentSetters WHERE id = ?', [req.params.id], (err) => {
+  db.run('DELETE FROM AppointmentSetters WHERE id = ?', [req.params.id], (err: Error | null) => {
     if (err) {
       console.error(err);
       res.status(500).json({ message: 'Failed to delete appointment.' });
@@ -59,7 +66,7 @@ app.delete('/appointments/:id', (req, res) => {
 });
 
 app.get('/appointments', (req, res) => {
-  db.all('SELECT * FROM AppointmentSetters', (err, rows) => {
+  db.all('SELECT * FROM AppointmentSetters', (err: Error | null,  rows: Appointment[]) => {
     if (err) {
       console.error(err);
       res.status(500).json({ message: 'Failed to fetch appointments.' });

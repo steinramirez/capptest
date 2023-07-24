@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@react-icons/all-files": "^4.1.0",
+    "@types/express": "^4.17.17",
     "@types/node": "20.3.3",
     "@types/react": "18.2.14",
     "@types/react-dom": "18.2.6",
