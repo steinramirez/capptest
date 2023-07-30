@@ -7,7 +7,7 @@ const AppointmentsTable = () => {
   const [deleteId, setDeleteId] = useState<number | null>(null);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [deletingAppointment, setDeletingAppointment] = useState<number | null>(null);
-  const [appointments, setAppointments] = useState<Date>([]);
+  const [appointments, setAppointments] = useState('');
 
   const fetchAppointments = async () => {
     try {

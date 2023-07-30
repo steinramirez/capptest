@@ -1,8 +1,17 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion'
-
-function TabPanel(props) {
+import Image  from 'next/image'
+import { MdHeight } from 'react-icons/md';
+interface Product {
+    id: number;
+    name: string;
+    price: number;
+    image: string;
+    rating: number;
+  }
+function TabPanel(props : any ) {
     const { children, value, index } = props;
+    
 
     return (
         <div
@@ -45,14 +54,18 @@ const products = [
     },
   ];
   
-  function ProductCard({ product }) {
+  function ProductCard({ product }: { product: Product }) {
+    const width = 20;
+    const height = 20;
     return (
       <div className="w-[120px] bg-white rounded-lg shadow-lg">
         <div className="relative ">
-          <img
+          <Image
             className="relative h-[100px] w-[100px] ml-1 object-cover"
             src={product.image}
             alt={product.name}
+            width={width}
+            height={height}
           />
         </div>
         <div className="p-4">
@@ -151,7 +164,7 @@ function Tabs() {
     
     const [value, setValue] = useState(0);
 
-    const handleChange = (event, newValue) => {
+    const handleChange = (event : any , newValue : any ) => {
         setValue(newValue);
     };
 

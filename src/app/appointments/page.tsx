@@ -1,30 +1,32 @@
 "use client"
 import React, { useState } from 'react';
 import axios from 'axios';
-import  DatePicker  from 'react-datepicker'
+import DatePicker, { ReactDatePickerProps } from 'react-datepicker';
 import { subDays, addDays } from 'date-fns'
 import AppointmentsTable from '../components/AppointmentsTable';
 import 'react-datepicker/src/stylesheets/datepicker.scss'
 
 interface Appointment {
-  id: number; // Or number, depending on the type of your IDs
+  [key: string]: any;
+  id: number;
   customerName: string;
   appointmentTime: string;
-  appointmentDate: string;
+  appointmentDate: Date;
 }
 export default function Home() {
   
-  const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [appointments, setAppointments] = useState(new Date());
   const [customerName, setCustomerName] = useState('');
-  const [appointmentDate, setAppointmentDate] = useState();
+  const [appointmentDate, setAppointmentDate] = useState<Date | null>(new Date());
   const [appointmentTime, setAppointmentTime] = useState('');
   const [message, setMessage] = useState('');
 
-  const HandleDateChange = (date) => {
-    const day = date.getDate();
-    const month = date.getMonth()+1;
-    setAppointmentDate(date);
+  const HandleDateChange = (date: any) => {
+    if (typeof date === 'string') {
+      date = new Date (date);
+      setAppointmentDate(date)
   }
+}
   const fetchAppointments = async () => {
     try {
       const response = await axios.get('http://localhost:3000/appointments');
@@ -56,7 +58,6 @@ export default function Home() {
         setMessage(response.data.message);
         setCustomerName('');
         setAppointmentTime('');
-        setAppointmentDate('');
        await fetchAppointments(); // Refresh the list of appointments after successful creation
       } else {
         setMessage('Appointment set!.');
@@ -80,15 +81,12 @@ export default function Home() {
           />
         </label>
         <br />
-        <label>
+        
         <a>Appointment Date:</a><br/>
         <DatePicker
-        dateFormat="dd/MM/yyyy"
-      selected={appointmentDate}
-      onChange={HandleDateChange}
-      excludeDateIntervals={[
-        { start: (new Date() , 1 ), end: subDays(new Date(), 1) },
-      ]}
+        selected={appointmentDate}
+        onChange={(date) => setAppointmentDate(date)}
+        minDate={new Date()}
       placeholderText="Select a date other than today or yesterday"
     /><br />
          {/*  <input className='box-shadow-multiple-colors'
@@ -96,7 +94,6 @@ export default function Home() {
             value={appointmentTime}
             onChange={(e) => setAppointmentTime(e.target.value)} required
           /> */}
-        </label>
         <br />
         <button className='font-weight-bold bg-blue-100 p-3 rounded-lg hover:bg-blue-300 active:bg-green-400' type="submit">Submit</button>
 
@@ -106,7 +103,7 @@ export default function Home() {
       </form>
       {message && <p>{message}</p>}
 
-     <AppointmentsTable />
+     <AppointmentsTable  />
 
       <div>
 

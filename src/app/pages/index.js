@@ -28,12 +28,12 @@ const db = new sqlite3.Database('appointments.db', (err) => {
 
 // Add an appointment
 
-app.post('/appointments', async (req, res) => {
+app.post('/appointments', async (req , res ) => {
   const { customerName, appointmentTime, appointmentDate } = req.body;
 
   try {
     const query = 'INSERT INTO AppointmentSetters (customerName, appointmentTime, appointmentDate) VALUES (?, ?, ?)';
-    db.run(query, [customerName, appointmentTime, appointmentDate], function ( err) {
+    db.run(query, [customerName, appointmentTime, appointmentDate], function ( err ) {
       if (err) {
         console.error(err);
         res.status(500).json({ message: 'Failed to set the appointment.' });
@@ -48,8 +48,8 @@ app.post('/appointments', async (req, res) => {
   }
 });
   
-app.delete('/appointments/:id', (req, res) => {
-  db.run('DELETE FROM AppointmentSetters WHERE id = ?', [req.params.id], (err) => {
+app.delete('/appointments/:id', (req , res ) => {
+  db.run('DELETE FROM AppointmentSetters WHERE id = ?', [req.params.id], (err ) => {
     if (err) {
       console.error(err);
       res.status(500).json({ message: 'Failed to delete appointment.' });
@@ -60,7 +60,7 @@ app.delete('/appointments/:id', (req, res) => {
 });
 
 app.get('/appointments', (req, res) => {
-  db.all('SELECT * FROM AppointmentSetters', (err,  rows) => {
+  db.all('SELECT * FROM AppointmentSetters', (err,  rows ) => {
     if (err) {
       console.error(err);
       res.status(500).json({ message: 'Failed to fetch appointments.' });
