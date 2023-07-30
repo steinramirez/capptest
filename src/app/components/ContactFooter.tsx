@@ -4,8 +4,8 @@ const FooterContent = () => {
 
     return(
         
-        <div className="p-3 text-xs text-gray-500 ml-4 mr-4  border-gray-500 border-t">
-            <h2 style={{marginTop:'5px'}}>Contacto</h2>
+        <div className=" text-xs text-white ml-6 ">
+            <h2 style={{marginTop:'-100px'}}>Contacto</h2>
 
             <p>tel: +57 300-00-00</p>
             <p>Direcci&oacute;n: Envigado, Antioquia, Colombia</p>

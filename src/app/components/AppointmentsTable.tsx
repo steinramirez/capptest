@@ -68,7 +68,7 @@ const AppointmentsTable = () => {
   };
 
   return (
-    <table className='overflow-y-auto scrollbar-hide overflow-x-hidden bg-orange-100 h-[50vh] p-4 rounded-xl flex flex-direction-column'>
+    <table className='overflow-y-auto scrollbar-hide overflow-x-hidden bg-orange-100 h-[50vh] p-4 rounded-xl flex flex-direction-column w-full'>
       <thead className='text-center mt-3'>
         <tr>
           <th>Name</th>
