@@ -7,7 +7,7 @@ import ContactFooter from './components/ContactFooter'
 
 export default function Home() {
 
-  const gradientColor = 'h-[40vh] z-10 w-full bg-gradient-to-t from-[#a9765c]'
+  const gradientColor = 'h-[34vh] z-10 w-full bg-gradient-to-t from-[#a9765c]'
 
   return (
     <div className='flex flex-col  max-h-full h-screen overflow-hidden'>

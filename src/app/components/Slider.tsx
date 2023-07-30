@@ -55,7 +55,7 @@ const Slider = () => {
           <AnimatePresence initial={false} custom={direction}>
             <motion.img
               key={page}
-              className=" overflow-y-hidden "
+              className=" overflow-hidden "
               src={images[imageIndex]}
               custom={direction}
               variants={variants}
