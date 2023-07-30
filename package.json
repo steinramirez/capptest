@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -H 192.168.1.1 -p 3001",
+    "dev": "next dev -H localhost -p 3001",
     "build": "next build",
     "start": "next start --port 3001",
     "lint": "next lint"
@@ -18,6 +18,7 @@
     "axios": "^1.4.0",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
+    "date-fns": "^2.30.0",
     "eslint": "8.44.0",
     "eslint-config-next": "13.4.8",
     "express": "^4.18.2",
@@ -27,8 +28,10 @@
     "popmotion": "^11.0.5",
     "postcss": "8.4.24",
     "react": "18.2.0",
+    "react-datepicker": "^4.16.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.10.1",
+    "sass": "^1.64.1",
     "sqlite3": "^5.1.6",
     "tailwindcss": "3.3.2",
     "typescript": "5.1.6"
@@ -40,5 +43,8 @@
     "app"
   ],
   "author": "stein ramirez",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/react-datepicker": "^4.15.0"
+  }
 }

@@ -1,7 +1,10 @@
 "use client"
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
+import  DatePicker  from 'react-datepicker'
+import { subDays, addDays } from 'date-fns'
 import AppointmentsTable from '../components/AppointmentsTable';
+import 'react-datepicker/src/stylesheets/datepicker.scss'
 
 interface Appointment {
   id: number; // Or number, depending on the type of your IDs
@@ -10,12 +13,18 @@ interface Appointment {
   appointmentDate: string;
 }
 export default function Home() {
+  
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [customerName, setCustomerName] = useState('');
-  const [appointmentDate, setAppointmentDate] = useState('');
+  const [appointmentDate, setAppointmentDate] = useState();
   const [appointmentTime, setAppointmentTime] = useState('');
   const [message, setMessage] = useState('');
 
+  const HandleDateChange = (date) => {
+    const day = date.getDate();
+    const month = date.getMonth()+1;
+    setAppointmentDate(date);
+  }
   const fetchAppointments = async () => {
     try {
       const response = await axios.get('http://localhost:3000/appointments');
@@ -51,6 +60,7 @@ export default function Home() {
        await fetchAppointments(); // Refresh the list of appointments after successful creation
       } else {
         setMessage('Appointment set!.');
+        setTimeout(()=>{setMessage('')}, 3000)
       }
     } catch (error) {
       setMessage('Failed to set the appointment.');
@@ -59,9 +69,9 @@ export default function Home() {
 
   return (
     <>
-    <div className='Form hv-[90hv]'>
+    <div className='Form'>
       <form onSubmit={handleSubmit}>
-        <label >
+          <label >
           <a>Customer Name:</a><br/>
           <input className='box-shadow-multiple-colors'
             type="text"
@@ -71,18 +81,21 @@ export default function Home() {
         </label>
         <br />
         <label>
-          <a>Appointment Date:</a><br/>
-          <input 
-          className='box-shadow-multiple-colors'
+        <a>Appointment Date:</a><br/>
+        <DatePicker
+        dateFormat="dd/MM/yyyy"
+      selected={appointmentDate}
+      onChange={HandleDateChange}
+      excludeDateIntervals={[
+        { start: (new Date() , 1 ), end: subDays(new Date(), 1) },
+      ]}
+      placeholderText="Select a date other than today or yesterday"
+    /><br />
+         {/*  <input className='box-shadow-multiple-colors'
             type="time"
             value={appointmentTime}
             onChange={(e) => setAppointmentTime(e.target.value)} required
-          /><br />
-          <input className='box-shadow-multiple-colors'
-            type="date"
-            value={appointmentDate}
-            onChange={(e) => setAppointmentDate(e.target.value)} required
-          />
+          /> */}
         </label>
         <br />
         <button className='font-weight-bold bg-blue-100 p-3 rounded-lg hover:bg-blue-300 active:bg-green-400' type="submit">Submit</button>

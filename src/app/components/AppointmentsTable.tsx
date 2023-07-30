@@ -3,18 +3,11 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { FcFullTrash } from 'react-icons/fc';
 
-interface Appointment {
-  id: number;
-  customerName: string;
-  appointmentTime: string;
-  appointmentDate: string;
-}
-
 const AppointmentsTable = () => {
   const [deleteId, setDeleteId] = useState<number | null>(null);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [deletingAppointment, setDeletingAppointment] = useState<number | null>(null);
-  const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [appointments, setAppointments] = useState<Date>([]);
 
   const fetchAppointments = async () => {
     try {
@@ -35,6 +28,11 @@ const AppointmentsTable = () => {
     // Fetch appointments when the component mounts (you can also do it based on some event)
     fetchAppointments();
   }, []);
+  
+  useEffect(() => {
+    // Fetch appointments when the component mounts (you can also do it based on some event)
+    fetchAppointments();
+  }, [deleteId, appointments]);
 
   const confirmDeleteAppointment = async () => {
     setShowConfirmation(false);
@@ -70,8 +68,8 @@ const AppointmentsTable = () => {
   };
 
   return (
-    <table className='overflow-y-auto overflow-x-hidden bg-orange-100 h-200px rounded-xl flex flex-direction-column'>
-      <thead className='text-center'>
+    <table className='overflow-y-auto scrollbar-hide overflow-x-hidden bg-orange-100 h-[50vh] p-4 rounded-xl flex flex-direction-column'>
+      <thead className='text-center mt-3'>
         <tr>
           <th>Name</th>
           <th>Time</th>
@@ -79,24 +77,26 @@ const AppointmentsTable = () => {
           <th>Actions</th>
         </tr>
       </thead>
-      <tbody>
-      {appointments.map((appointment) => (
-            <tr key={appointment.id}>
-              <td>{appointment.customerName}</td>
-              <td>{appointment.appointmentTime}</td>
-              <td>{appointment.appointmentDate}</td>
-              <td>
-                <button className='bg-blue-200 rounded-lg p-1' onClick={() => handleDelete(appointment.id)}>
-                  <FcFullTrash />
-                </button>
-              </td>
-            </tr>
-          ))}
-          {showConfirmation && (
-      <div>
+      <tbody className='mt-10'>
+      {Array.isArray(appointments) && appointments.map((appointment) => (
+          <tr key={appointment.id}>
+            <td>{appointment.customerName}</td>
+            <td>{appointment.appointmentTime}</td>
+            <td>{appointment.appointmentDate}</td>
+            <td>
+              <button className='bg-blue-200 rounded-lg p-1' onClick={() => handleDelete(appointment.id)}>
+                <FcFullTrash />
+              </button>
+            </td>
+          </tr>
+        ))}
+          
+     {showConfirmation && (
+      <div className='p-5'>
         <p>Are you sure you want to delete this appointment?</p>
-        <button onClick={confirmDeleteAppointment}>Yes</button>
-        <button onClick={cancelDeleteAppointment}>No</button>
+        <div className='h-[20px]'></div>
+        <button className="w-[40px] h-[30px] bg-green-400  rounded-xl hover:bg-green-300 active:bg-green-600" onClick={confirmDeleteAppointment}>Yes</button>
+        <button className="w-[40px] ml-3 h-[30px] bg-red-400  rounded-xl hover:bg-red-300 active:bg-red-600" onClick={cancelDeleteAppointment}>No</button>
       </div>
     )}
     {deletingAppointment !== null && (
@@ -106,7 +106,7 @@ const AppointmentsTable = () => {
     )}
       </tbody>
     </table>
-    
+      
 );
 };
 

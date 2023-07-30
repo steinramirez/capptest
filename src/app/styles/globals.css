@@ -8,6 +8,10 @@
   --background-end-rgb: 255, 255, 255;
 }
 
+/* *{
+  border:1.5px solid red;
+} */
+
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
@@ -28,11 +32,7 @@ h2{
   font-size: medium;
   font-weight: 700;
 }
-.Form > label {
-  display: flex;
-  gap: 50px;
-  flex-direction: column;
-}
+
 
 input:focus {
   outline:1pt;
@@ -94,15 +94,6 @@ p {
   font-size: small;
 }
 
-.example-container {
-  width: 100vw;
-  height: 100vh;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .next,
 .prev {
   top: calc(20% - 20px);
@@ -118,7 +109,7 @@ p {
   cursor: pointer;
   font-weight: bold;
   font-size: 18px;
-  z-index: 2;
+  z-index: 20;
 }
 .next:active,
 .prev:active {
@@ -135,16 +126,21 @@ p {
   cursor: pointer;
   font-weight: bold;
   font-size: 18px;
-  z-index: 2;
+  z-index: 20;
+
 }
 
 .next {
   right: 10px;
+  position: absolute;
+  z-index: 20;
 }
 
 .prev {
   left: 10px;
   transform: scale(-1);
+  position: absolute;
+  z-index: 20;
 }
 
 img {
@@ -166,4 +162,57 @@ img {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+}
+/* Hide the scrollbar */
+::-webkit-scrollbar {
+  width: 0.3em;
+  height: 0.3em;
+}
+
+/* Style the scrollbar track */
+::-webkit-scrollbar-track {
+  background-color: #d1d1d1;
+}
+
+/* Style the scrollbar thumb */
+::-webkit-scrollbar-thumb {
+  background-color: #b3b2b2;
+  border-radius: 1em;
+}
+
+/* Style the scrollbar thumb on hover */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #787878;
+}
+
+.home-banner-button{
+  width: 130px;
+  text-align: center;
+}
+
+.bg-home-slider-content{
+  background: linear-gradient( to top, rgb(90, 79, 79), rgb(150,150,15));
+  height: auto;
+  position:relative;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.tab{
+  max-width: 200px;
+  min-width: 100px;
+  background:white;
+  padding:9px;
+  border-radius: 10px;
+}
+
+.tab:active{
+
+  background: #edbf8d;
 }

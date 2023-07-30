@@ -21,7 +21,7 @@ const NavBar = () => {
 
     return (
 
-        <nav style={{ width: '100%', height: '70px', position: 'absolute', display: 'flex', flexDirection: 'row', bottom: '0', textAlign:'center',justifyContent:'center'}} className="fixed bottom-0 left-0 right-0 flex justify-around text-gray-600 bg-white">
+        <nav style={{ width: '100%', height: '80px', position: 'absolute', display: 'flex', flexDirection: 'row', bottom: '0', textAlign:'center',justifyContent:'center'}} className="fixed m-0 bottom-0 flex justify-around text-gray-600 bg-white">
             <Link href="/"
                 as='/'
                 style={linkStyles}
